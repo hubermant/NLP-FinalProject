@@ -29,13 +29,8 @@ public class AutocompleteResultWriter {
 	public void write(String word, String prefix) throws IOException {
 		String suffix= extractCompletedSuffix(word, prefix);
 		prefix = this.sanitize(prefix);
-		
-		if (suffix.length() > 0) {
-			suffix  = this.sanitize(suffix);
-			out.write(prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP);
-		} else {
-			out.write(prefix);
-		}
+		suffix  = this.sanitize(suffix);
+		out.write(prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP);
 	}
 
 	private String sanitize(String str) {

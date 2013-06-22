@@ -42,7 +42,7 @@ public class AutocompleteResultWriterTest {
 		
 		acrw.write("foobar", "foobar");
 		out.flush();
-		assertEquals("foobar", new String(stream.toByteArray()));
+		assertEquals(result("foobar", ""), new String(stream.toByteArray()));
 	}
 	
 	@Test
