@@ -3,7 +3,7 @@ import re
 
 COMPLETION_LEFT_SEP = "{"
 COMPLETION_RIGHT_SEP = "}"
-COMPLETION_REGEX_STRING = "(?P<prefix>\S+)\{(?P<completed>\S*)\}"
+COMPLETION_REGEX_STRING = "(?P<prefix>\S*)\{(?P<completed>\S*)\}"
 completion_regex = re.compile(COMPLETION_REGEX_STRING)
 
 def unsanitize(sentence):
@@ -68,7 +68,7 @@ class CompletedLettersPerWordSize(object):
         print 'Average word size: %.4f' % ((float(self.sum_of_words_size)) / self.number_of_words)
         print 'Average completed letters per '\
               'word size:  %.4f' % ((float(self.sum_of_completed_letters_per_word_size)) / self.number_of_words)
-        
+              
 metrics = [NumberOfCompletedWords(),
            SavedKeystrokes(),
            CompletedLettersPerWordSize()]
