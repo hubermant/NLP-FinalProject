@@ -20,9 +20,13 @@ public class WordRank implements Comparable<WordRank> {
 
 	@Override
 	public int compareTo(WordRank o) {
-		if (word.equals(o))
-		
-		return 0;
+		if (counter < o.getCounter()) {
+			return -1;
+		} else if (counter == o.getCounter()) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 	public String getWord() {

@@ -1,5 +1,7 @@
 package autocomplete.core.wordbank;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +47,9 @@ public class WordsSuggestion {
 	public List<WordRank> get(List<String> features, String prefix, int resultNum) {
 		if (featuresToWords.containsKey(features)) {
 			SortedMap<String,WordRank> filteredMap = filterPrefix(featuresToWords.get(features), prefix);
-			return null;
+			ArrayList<WordRank> segustions = new ArrayList<>(filteredMap.values());
+			Collections.sort(segustions);
+			return segustions.subList(0, resultNum);
 		} else {
 			//TODO: need to think what to do in case where the features never appeared before. 
 			return null;
