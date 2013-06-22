@@ -3,6 +3,7 @@ package autocomplete.core;
 import java.util.List;
 
 import utill.collection.Pair;
+import utill.collection.WordRank;
 
 /**
  * This is an interface for all the types of completers in the project.
@@ -20,5 +21,5 @@ public interface Completer {
 	 * @param prefix the prefix of the current word.
 	 * @return a Set of k completion word proposals.
 	 */
-	public List<Pair<String, Double>> complete(String[] lastWords, String prefix);
+	public List<WordRank> complete(String[] lastWords, String prefix);
 }

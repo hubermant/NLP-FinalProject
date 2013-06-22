@@ -18,6 +18,8 @@ public class WordsSuggestion {
 	
 	private Map<String, Integer> wordToFrequency;
 	
+	private long totalNumberOfWords = 0;
+	
 	
 	/* ---- Constructors ---- */
 	
@@ -42,6 +44,7 @@ public class WordsSuggestion {
 		}
 		WordRank wordRank = featuresToWords.get(features).get(word);
 		wordRank.inc();
+		totalNumberOfWords++;
 	}
 	
 	public List<WordRank> get(List<String> features, String prefix, int resultNum) {
@@ -49,10 +52,15 @@ public class WordsSuggestion {
 			SortedMap<String,WordRank> filteredMap = filterPrefix(featuresToWords.get(features), prefix);
 			ArrayList<WordRank> segustions = new ArrayList<>(filteredMap.values());
 			Collections.sort(segustions);
-			return segustions.subList(0, resultNum);
+			Collections.reverse(segustions);
+			if (segustions.size() < resultNum) {
+				return segustions.subList(0, segustions.size());
+			} else {
+				return segustions.subList(0, resultNum);
+			}
 		} else {
 			//TODO: need to think what to do in case where the features never appeared before. 
-			return null;
+			return new ArrayList<>();
 		}
 	}
 	
