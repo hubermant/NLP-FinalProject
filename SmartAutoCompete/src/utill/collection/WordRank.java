@@ -44,5 +44,9 @@ public class WordRank implements Comparable<WordRank> {
 	public void setCounter(int counter) {
 		this.counter = counter;
 	}
+	
+	public String toString() {
+		return word + "-" + counter;
+	}
 
 }

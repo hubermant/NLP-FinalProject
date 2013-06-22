@@ -14,7 +14,7 @@ import org.junit.Test;
 public class AutocompleteResultWriterTest {
 
 	public String result(String prefix, String suffix) {
-		return prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP;
+		return prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP +" ";
 	}
 	
 	@Test

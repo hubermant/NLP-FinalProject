@@ -21,5 +21,5 @@ public interface Completer {
 	 * @param prefix the prefix of the current word.
 	 * @return a Set of k completion word proposals.
 	 */
-	public List<WordRank> complete(String[] lastWords, String prefix);
+	public List<WordRank> complete(List<String> lastWords, String prefix);
 }

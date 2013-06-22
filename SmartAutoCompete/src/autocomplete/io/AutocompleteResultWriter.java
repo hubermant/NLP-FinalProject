@@ -30,9 +30,18 @@ public class AutocompleteResultWriter {
 		String suffix= extractCompletedSuffix(word, prefix);
 		prefix = this.sanitize(prefix);
 		suffix  = this.sanitize(suffix);
-		out.write(prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP);
+		out.write(prefix + COMPLETION_LEFT_SEP + suffix + COMPLETION_RIGHT_SEP + " ");
 	}
-
+	
+	public void markNewLine() throws IOException {
+		out.write("\n");
+		out.flush();
+	}
+	
+	public void close() throws IOException {
+		out.flush();
+		out.close();
+	}
 	private String sanitize(String str) {
 		str = str.replace(COMPLETION_LEFT_SEP,  
 				COMPLETION_LEFT_SEP + COMPLETION_LEFT_SEP);

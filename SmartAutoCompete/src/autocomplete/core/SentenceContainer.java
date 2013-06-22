@@ -50,7 +50,7 @@ public class SentenceContainer {
 		lastWord = "";
 	}
 	
-	public void setLastWords(String[] words) {
+	public void setLastWords(List<String> words) {
 		for (String word : words) {
 			wordBufer.add(word);
 		}

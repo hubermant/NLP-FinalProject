@@ -25,18 +25,21 @@ public class BasicCompleter implements Completer {
 	public void train(String text) {
 		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.",false);
 		while (sentenceTokenizer.hasMoreElements()) {
-			StringTokenizer wordTokenizer =  new StringTokenizer(text, " \t,\\/-!:?\"~()<>{};*#",false);
+			String sentence = sentenceTokenizer.nextToken();
+			StringTokenizer wordTokenizer =  new StringTokenizer(sentence, " \t,\\/-!:?\"~()<>{};*#",false);
 			SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 			while (wordTokenizer.hasMoreElements()) {
 				String word = wordTokenizer.nextToken();
 				List<String> prevWords = sentenceContainer.getNgram();
 				wordBank.put(prevWords, word);
+				sentenceContainer.addWord(word);
 			}
 		}
+
 	}
 
 	@Override
-	public List<WordRank> complete(String[] lastWords, String prefix) {
+	public List<WordRank> complete(List<String> lastWords, String prefix) {
 		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 		sentenceContainer.setLastWords(lastWords);
 		List<String> lastNWords = sentenceContainer.getNgram();
