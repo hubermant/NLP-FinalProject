@@ -6,7 +6,23 @@ public class WordRank {
 	
 	private String word;
 	
-	private double probability;
-	
 	private int counter;
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+	
+	
 }
