@@ -25,7 +25,7 @@ public class BasicCompleter implements Completer {
 	public void train(String text) {
 		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.",false);
 		while (sentenceTokenizer.hasMoreElements()) {
-			StringTokenizer wordTokenizer =  new StringTokenizer(text, " \t,\\/-!:?\"",false);
+			StringTokenizer wordTokenizer =  new StringTokenizer(text, " \t,\\/-!:?\"~()<>{};",false);
 			SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 			while (wordTokenizer.hasMoreElements()) {
 				String word = wordTokenizer.nextToken();
