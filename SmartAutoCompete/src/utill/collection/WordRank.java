@@ -13,7 +13,6 @@ public class WordRank implements Comparable<WordRank> {
 	
 	private int counter;
 
-
 	public void inc() {
 		counter++;
 	}
@@ -25,4 +24,21 @@ public class WordRank implements Comparable<WordRank> {
 		
 		return 0;
 	}
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+
 }
