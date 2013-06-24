@@ -15,9 +15,9 @@ public class BasicCompleter implements Completer {
 	
 	private WordsSuggestion wordBank;
 	
-	public BasicCompleter(int ngram, int resNm) {
+	public BasicCompleter(int ngram, int resNum) {
 		this.ngram = ngram;
-		this.resNum = resNm;
+		this.resNum = resNum;
 		wordBank = new WordsSuggestion();
 	}
 
@@ -36,6 +36,15 @@ public class BasicCompleter implements Completer {
 			}
 		}
 
+	}
+	
+	public void train(List<String> sentence) {
+		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
+		for (String word: sentence){
+			List<String> prevWords = sentenceContainer.getNgram();
+			wordBank.put(prevWords, word);
+			sentenceContainer.addWord(word);
+		}
 	}
 
 	@Override

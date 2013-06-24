@@ -1,0 +1,13 @@
+
+Total number of words: 4867
+Total number of completed words: 1568
+Percentage of completed words: 0.3222
+
+Total number of keystrokes (Entire text): 20029
+Actual number of keystrokes : 15357
+Number of saved keystrokes : 4672
+Actual/Saved keystrokes ratio: 3.2870
+Total/Actual keystrokes ratio: 1.3042
+
+Average word size: 4.1153
+Average completed letters per word size:  0.2682
