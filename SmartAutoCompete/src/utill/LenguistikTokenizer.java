@@ -16,13 +16,13 @@ public class LenguistikTokenizer {
 	 */
 	public static List<String> sentenceTokrnizer(String text) {
 		List<String> res = new ArrayList<>();
-		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.");
+		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.", true);
+		String prevToken = null;
+		String currSentence = "";
 		while (sentenceTokenizer.hasMoreElements()) {
 			String token = sentenceTokenizer.nextToken();
-			String prevToken = null;
-			String currSentence = "";
 			if (!(token.equals(".") || token.equals("\n"))) {
-				currSentence.concat(token);
+				currSentence += token;
 			} else {
 				if (!currSentence.equals("")) {
 					if (token.equals(".")) {
@@ -50,7 +50,7 @@ public class LenguistikTokenizer {
 		StringTokenizer wordTokenizer =  new StringTokenizer(sentence, " \t,\\/!:?~()<>{};",false);
 		while (wordTokenizer.hasMoreElements()) {
 			String word = wordTokenizer.nextToken();
-			StringTokenizer inWordTokenizer =  new StringTokenizer(word, inWordTokens);
+			StringTokenizer inWordTokenizer =  new StringTokenizer(word, inWordTokens, true);
 			if (inWordTokenizer.countTokens() > 1) {
 				int i=0;
 				String currWord="";
