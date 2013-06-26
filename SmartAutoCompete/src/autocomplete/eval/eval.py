@@ -77,7 +77,7 @@ def main():
     text = open(sys.argv[1]).readlines()
     for sentence in text:
         for (prefix, completed) in update_completed_words(sentence):
-            for metric in metrics:
+            for metric in metrics:			
                 metric.update_results(prefix, completed)
         
     for metric in metrics:

@@ -16,22 +16,30 @@ public class LenguistikTokenizer {
 	 */
 	public static List<String> sentenceTokrnizer(String text) {
 		List<String> res = new ArrayList<>();
-		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.", true);
+		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n."+(char)0x0c, true);
 		String prevToken = null;
 		String currSentence = "";
 		while (sentenceTokenizer.hasMoreElements()) {
 			String token = sentenceTokenizer.nextToken();
-			if (!(token.equals(".") || token.equals("\n"))) {
-				currSentence += token;
+			if (!(token.equals(".") || token.equals("\n") || token.charAt(0) ==((char)0x0c))) {
+				if (!currSentence.equals("")) {
+					currSentence += " " + token;
+				} else {
+					currSentence += token;
+				}
 			} else {
 				if (!currSentence.equals("")) {
+					if (token.charAt(0) ==((char)0x0c)) {
+						res.add(currSentence);
+						currSentence = "";
+					}
 					if (token.equals(".")) {
 						res.add(currSentence);
 						currSentence = "";
 					} else if (prevToken.equals("\n")) {
 						res.add(currSentence);
 						currSentence = "";
-					}
+					} 
 				}
 			}
 			prevToken = token;
@@ -50,7 +58,7 @@ public class LenguistikTokenizer {
 	public static List<String> wordTokrnizer(String sentence) {
 		List<String> res = new ArrayList<>(); 
 		String inWordTokens = "-\"\'*#@$_";
-		StringTokenizer wordTokenizer =  new StringTokenizer(sentence, " \t,\\/!:?~()<>{};",false);
+		StringTokenizer wordTokenizer =  new StringTokenizer(sentence, " \r\t,\\/!:?~()<>{};",false);
 		while (wordTokenizer.hasMoreElements()) {
 			String word = wordTokenizer.nextToken();
 			StringTokenizer inWordTokenizer =  new StringTokenizer(word, inWordTokens, true);
@@ -61,7 +69,7 @@ public class LenguistikTokenizer {
 				while (inWordTokenizer.hasMoreElements()) {
 					String token = inWordTokenizer.nextToken();
 					if (inWordTokens.contains(token)) {
-						if (i != 1 && i < totalTokenNumber) {
+						if (i != 1 && i < totalTokenNumber && !currWord.equals("")) {
 							currWord += token;
 						}
 					} else {
