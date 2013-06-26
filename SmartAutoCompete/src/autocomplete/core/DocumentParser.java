@@ -8,6 +8,7 @@ import java.util.List;
 
 import utill.LenguistikTokenizer;
 import utill.collection.WordRank;
+import autocomplete.core.event.EndSentenceEvent;
 import autocomplete.io.AutocompleteResultWriter;
 
 public class DocumentParser implements CorpusParser {
@@ -53,7 +54,9 @@ public class DocumentParser implements CorpusParser {
 			chunk+=readChunk;
 			List<String> sentences = LenguistikTokenizer.sentenceTokrnizer(chunk);
 			for(int i=0; i < sentences.size()-1; i++) {
-				completeLine(sentences.get(i), res);
+				List<String> words = LenguistikTokenizer.wordTokrnizer(sentences.get(i));
+				completeLine(words, res);
+				completer.handleEvent(new EndSentenceEvent(words));
 			}
 			charBuf = new char[10000];
 			readAmount = bufReader.read(charBuf);
@@ -61,7 +64,9 @@ public class DocumentParser implements CorpusParser {
 		}
 		List<String> sentences = LenguistikTokenizer.sentenceTokrnizer(chunk);
 		for(int i=0; i < sentences.size(); i++) {
-			completeLine(sentences.get(i), res);
+			List<String> words = LenguistikTokenizer.wordTokrnizer(sentences.get(i));
+			completeLine(words, res);
+			completer.handleEvent(new EndSentenceEvent(words));
 		}
 			
 		// Close streams
@@ -70,8 +75,7 @@ public class DocumentParser implements CorpusParser {
 	}
 	
 	
-	private void completeLine(String sentence, AutocompleteResultWriter res) throws IOException {
-		List<String> words = LenguistikTokenizer.wordTokrnizer(sentence);
+	private void completeLine(List<String> words, AutocompleteResultWriter res) throws IOException {
 		
 		// For each word in the sentence
 		for (int i=0; i < words.size(); i++) {
