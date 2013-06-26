@@ -36,6 +36,9 @@ public class LenguistikTokenizer {
 			}
 			prevToken = token;
 		}
+		if (!currSentence.equals("")) {
+			res.add(currSentence);
+		}
 		return res;
 	}
 	
@@ -46,28 +49,33 @@ public class LenguistikTokenizer {
 	 */
 	public static List<String> wordTokrnizer(String sentence) {
 		List<String> res = new ArrayList<>(); 
-		String inWordTokens = "-\"\'*#@$";
+		String inWordTokens = "-\"\'*#@$_";
 		StringTokenizer wordTokenizer =  new StringTokenizer(sentence, " \t,\\/!:?~()<>{};",false);
 		while (wordTokenizer.hasMoreElements()) {
 			String word = wordTokenizer.nextToken();
 			StringTokenizer inWordTokenizer =  new StringTokenizer(word, inWordTokens, true);
-			if (inWordTokenizer.countTokens() > 1) {
-				int i=0;
+			int totalTokenNumber = inWordTokenizer.countTokens();
+			if (totalTokenNumber > 1) {
+				int i=1;
 				String currWord="";
 				while (inWordTokenizer.hasMoreElements()) {
 					String token = inWordTokenizer.nextToken();
 					if (inWordTokens.contains(token)) {
-						if (i != 0 && i < inWordTokenizer.countTokens()) {
-							currWord.concat(token);
+						if (i != 1 && i < totalTokenNumber) {
+							currWord += token;
 						}
+					} else {
+						currWord += token;
 					}
 					i++;
 				}
-				if (!res.equals("")) {
+				if (!currWord.equals("")) {
 					res.add(currWord);
 				}
 			} else {
-				res.add(word);
+				if (!inWordTokens.contains(word)) {
+					res.add(word);
+				}
 			}
 		}
 		return res;

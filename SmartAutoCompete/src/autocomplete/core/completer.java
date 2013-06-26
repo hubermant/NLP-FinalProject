@@ -2,19 +2,12 @@ package autocomplete.core;
 
 import java.util.List;
 
-import utill.collection.Pair;
 import utill.collection.WordRank;
 
 /**
  * This is an interface for all the types of completers in the project.
  */
 public interface Completer {
-	
-	/**
-	 * Train the completer.
-	 * @param text the train data.
-	 */
-	public void train(String text);
 	
 	/**
 	 * Train the completer.
