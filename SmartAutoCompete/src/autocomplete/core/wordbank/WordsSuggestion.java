@@ -63,6 +63,23 @@ public class WordsSuggestion {
 			return new ArrayList<>();
 		}
 	}
+
+	public List<WordRank> getByFeetchersAndPrefix(List<String> features, String prefix) {
+		if (featuresToWords.containsKey(features)) {
+			SortedMap<String,WordRank> filteredMap = filterPrefix(featuresToWords.get(features), prefix);
+			ArrayList<WordRank> segustions = new ArrayList<>(filteredMap.values());
+			Collections.sort(segustions);
+			Collections.reverse(segustions);
+			return segustions;
+		} else {
+			//TODO: need to think what to do in case where the features never appeared before. 
+			return new ArrayList<>();
+		}
+	}
+	
+	public Map<String, Integer> getWordCountMap() {
+		return wordToFrequency;
+	}
 	
 	public SortedMap<String, WordRank> filterPrefix(SortedMap<String,WordRank> baseMap, String prefix) {
 	    if(prefix.length() > 0) {

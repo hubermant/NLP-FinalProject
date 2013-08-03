@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import utill.collection.WordRank;
+import autocomplete.core.event.Event;
 import autocomplete.core.wordbank.WordsSuggestion;
 
 public class BasicCompleter implements Completer {
@@ -21,7 +22,6 @@ public class BasicCompleter implements Completer {
 		wordBank = new WordsSuggestion();
 	}
 
-	@Override
 	public void train(String text) {
 		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.",false);
 		while (sentenceTokenizer.hasMoreElements()) {
@@ -38,6 +38,7 @@ public class BasicCompleter implements Completer {
 
 	}
 	
+	@Override
 	public void train(List<String> sentence) {
 		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 		for (String word: sentence){
@@ -52,9 +53,18 @@ public class BasicCompleter implements Completer {
 		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 		sentenceContainer.setLastWords(lastWords);
 		List<String> lastNWords = sentenceContainer.getNgram();
-		return wordBank.get(lastNWords, prefix, resNum);
+		List<WordRank> sugestions = wordBank.getByFeetchersAndPrefix(lastNWords, prefix);
+		if(sugestions.size() > resNum) {
+			return sugestions.subList(0, resNum);
+		} else {
+			return sugestions;
+		}
 	}
-	
+
+	@Override
+	public void handleEvent(Event e) {
+		// This is a basic completer.
+	}
 	
 
 }
