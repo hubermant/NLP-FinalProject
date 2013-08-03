@@ -1,4 +1,4 @@
-package autocomplete.core;
+package autocomplete.io.parse;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

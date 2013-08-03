@@ -1,4 +1,4 @@
-package autocomplete.core;
+package autocomplete.io.parse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import utill.LenguistikTokenizer;
 import utill.collection.WordRank;
+import autocomplete.core.completer.Completer;
 import autocomplete.core.event.EndSentenceEvent;
 import autocomplete.io.AutocompleteResultWriter;
 

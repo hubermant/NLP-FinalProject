@@ -1,4 +1,4 @@
-package autocomplete.core;
+package autocomplete.core.completer;
 
 import autocomplete.core.event.EndSentenceEvent;
 import autocomplete.core.event.Event;

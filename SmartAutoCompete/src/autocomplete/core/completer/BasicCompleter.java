@@ -1,9 +1,10 @@
-package autocomplete.core;
+package autocomplete.core.completer;
 
 import java.util.List;
 import java.util.StringTokenizer;
 
 import utill.collection.WordRank;
+import autocomplete.core.SentenceContainer;
 import autocomplete.core.event.Event;
 import autocomplete.core.wordbank.WordsSuggestion;
 

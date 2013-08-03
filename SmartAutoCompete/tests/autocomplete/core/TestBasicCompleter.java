@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import org.junit.Test;
 
+import autocomplete.core.completer.BasicCompleter;
 import autocomplete.io.AutocompleteResultWriter;
 
 import utill.collection.WordRank;

@@ -1,4 +1,4 @@
-package autocomplete.core;
+package autocomplete.core.completer;
 
 import java.util.List;
 

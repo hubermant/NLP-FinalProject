@@ -10,6 +10,11 @@ import java.io.Reader;
 
 import org.junit.Test;
 
+import autocomplete.core.completer.BasicCompleter;
+import autocomplete.core.completer.Completer;
+import autocomplete.core.completer.LearningCompleter;
+import autocomplete.core.parse.DocumentParser;
+
 public class DocumentParserTest {
 	
 	@Test
