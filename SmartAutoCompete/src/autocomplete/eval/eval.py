@@ -32,7 +32,7 @@ class NumberOfCompletedWords(object):
     def print_results(self):
         print 'Total number of words: %d' % self.number_of_words
         print 'Total number of completed words: %d' % self.number_of_completed_words 
-        print 'Percentage of completed words: %.4f' %  (float(self.number_of_completed_words)/ self.number_of_words )
+        print 'Percentage of completed words (POCW): %.4f' %  (float(self.number_of_completed_words)/ self.number_of_words )
     
 class SavedKeystrokes(object):
     def __init__(self):
@@ -49,8 +49,8 @@ class SavedKeystrokes(object):
         print 'Total number of keystrokes (Entire text): %d' % self.number_of_keystrokes
         print 'Actual number of keystrokes : %d' % self.number_of_actual_keystrokes 
         print 'Number of saved keystrokes : %d' % self.number_of_saved_keystrokes
-        print 'Actual/Saved keystrokes ratio: %.4f' % (float(self.number_of_actual_keystrokes) / self.number_of_saved_keystrokes)
-        print 'Total/Actual keystrokes ratio: %.4f' % (float(self.number_of_keystrokes) / self.number_of_actual_keystrokes)
+        print 'Actual/Saved keystrokes ratio (RSKR): %.4f' % (float(self.number_of_actual_keystrokes) / self.number_of_saved_keystrokes)
+        print 'Total/Actual keystrokes ratio (SKR) : %.4f' % (float(self.number_of_keystrokes) / self.number_of_actual_keystrokes)
 
 class CompletedLettersPerWordSize(object):
     def __init__(self):
@@ -66,8 +66,8 @@ class CompletedLettersPerWordSize(object):
         
     def print_results(self):
         print 'Average word size: %.4f' % ((float(self.sum_of_words_size)) / self.number_of_words)
-        print 'Average completed letters per '\
-              'word size:  %.4f' % ((float(self.sum_of_completed_letters_per_word_size)) / self.number_of_words)
+        print 'Average completed letters per word size (CLPWS):  %.4f'
+               % ((float(self.sum_of_completed_letters_per_word_size)) / self.number_of_words)
               
 metrics = [NumberOfCompletedWords(),
            SavedKeystrokes(),
