@@ -16,7 +16,18 @@ public class WordRank implements Comparable<WordRank> {
 	public void inc() {
 		counter++;
 	}
+	
+	public void inc(int amount) {
+		counter += amount;
+	}
 
+	public void dec() {
+		counter--;
+	}
+	
+	public void dec(int amount) {
+		counter -= amount;
+	}
 
 	@Override
 	public int compareTo(WordRank o) {

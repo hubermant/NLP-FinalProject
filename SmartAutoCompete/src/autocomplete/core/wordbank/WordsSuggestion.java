@@ -16,16 +16,21 @@ public class WordsSuggestion {
 	
 	private Map<List<String>,SortedMap<String, WordRank>> featuresToWords;
 	
-	private Map<String, Integer> wordToFrequency;
+	private Map<String, WordRank> wordToFrequency;
 	
 	private long totalNumberOfWords = 0;
 	
 	
 	/* ---- Constructors ---- */
 	
+	public long getTotalNumberOfWords() {
+		return totalNumberOfWords;
+	}
+
+
 	public WordsSuggestion() {
 		featuresToWords = new HashMap<List<String>, SortedMap<String,WordRank>>();
-		wordToFrequency = new HashMap<String, Integer>();
+		wordToFrequency = new HashMap<String, WordRank>();
 	}
 	
 	
@@ -33,9 +38,9 @@ public class WordsSuggestion {
 	
 	public void put(List<String> features, String word) {
 		if (!wordToFrequency.containsKey(word)) {
-			wordToFrequency.put(word, 0);
+			wordToFrequency.put(word, new WordRank(word));
 		}
-		wordToFrequency.put(word, wordToFrequency.get(word) + 1);
+		wordToFrequency.get(word).inc();
 		if (!featuresToWords.containsKey(features)) {
 			featuresToWords.put(features, new TreeMap<String, WordRank>());
 		}
@@ -47,37 +52,52 @@ public class WordsSuggestion {
 		totalNumberOfWords++;
 	}
 	
-	public List<WordRank> get(List<String> features, String prefix, int resultNum) {
-		if (featuresToWords.containsKey(features)) {
-			SortedMap<String,WordRank> filteredMap = filterPrefix(featuresToWords.get(features), prefix);
-			ArrayList<WordRank> segustions = new ArrayList<>(filteredMap.values());
-			Collections.sort(segustions);
-			Collections.reverse(segustions);
-			if (segustions.size() < resultNum) {
-				return segustions.subList(0, segustions.size());
-			} else {
-				return segustions.subList(0, resultNum);
+	public void putAmount(String word, int amount) {
+		for (List<String> features : featuresToWords.keySet()) {
+			if (featuresToWords.get(features).containsKey(word)) {
+				putAmount(word, amount, features);
 			}
+		}
+	}
+
+
+	public void putAmount(String word, int amount, List<String> features) {
+		for(int i = 0; i < amount; i++) {
+			put(features, word);
+		}
+	}
+	
+	public void removeAmount(String word, int amount) {
+		for (SortedMap<String, WordRank> map : featuresToWords.values()) {
+			if (map.containsKey(word)) {
+				map.get(word).dec(amount);
+				wordToFrequency.get(word).dec(amount);
+				totalNumberOfWords-=amount;
+			}
+		} 
+	}
+	
+	public List<WordRank> get(List<String> features, String prefix, int resultNum) {
+		List<WordRank> segustions = getByFeetchersAndPrefix(features, prefix); 
+		if (segustions.size() < resultNum) {
+			return segustions.subList(0, segustions.size());
 		} else {
-			//TODO: need to think what to do in case where the features never appeared before. 
-			return new ArrayList<>();
+			return segustions.subList(0, resultNum);
 		}
 	}
 
 	public List<WordRank> getByFeetchersAndPrefix(List<String> features, String prefix) {
+		ArrayList<WordRank> segustions = new ArrayList<>(wordToFrequency.values());
 		if (featuresToWords.containsKey(features)) {
 			SortedMap<String,WordRank> filteredMap = filterPrefix(featuresToWords.get(features), prefix);
-			ArrayList<WordRank> segustions = new ArrayList<>(filteredMap.values());
-			Collections.sort(segustions);
-			Collections.reverse(segustions);
-			return segustions;
-		} else {
-			//TODO: need to think what to do in case where the features never appeared before. 
-			return new ArrayList<>();
-		}
+			segustions = new ArrayList<>(filteredMap.values());
+		} 
+		Collections.sort(segustions);
+		Collections.reverse(segustions);
+		return segustions;
 	}
 	
-	public Map<String, Integer> getWordCountMap() {
+	public Map<String, WordRank> getWordCountMap() {
 		return wordToFrequency;
 	}
 	

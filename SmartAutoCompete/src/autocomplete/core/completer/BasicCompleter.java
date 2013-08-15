@@ -11,18 +11,18 @@ import autocomplete.core.wordbank.WordsSuggestion;
 public class BasicCompleter implements Completer {
 	
 	
-	private int ngram;
+	protected int ngram;
 	
-	private int resNum;
+	protected int resNum;
 	
-	private WordsSuggestion wordBank;
+	protected WordsSuggestion wordBank;
 	
 	public BasicCompleter(int ngram, int resNum) {
 		this.ngram = ngram;
 		this.resNum = resNum;
 		wordBank = new WordsSuggestion();
 	}
-
+	@Deprecated
 	public void train(String text) {
 		StringTokenizer sentenceTokenizer =  new StringTokenizer(text, "\n.",false);
 		while (sentenceTokenizer.hasMoreElements()) {

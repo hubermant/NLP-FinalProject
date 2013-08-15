@@ -1,7 +1,5 @@
 package autocomplete.core;
 
-import static org.junit.Assert.*;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,7 +11,7 @@ import org.junit.Test;
 import autocomplete.core.completer.BasicCompleter;
 import autocomplete.core.completer.Completer;
 import autocomplete.core.completer.LearningCompleter;
-import autocomplete.core.parse.DocumentParser;
+import autocomplete.io.parse.DocumentParser;
 
 public class DocumentParserTest {
 	
