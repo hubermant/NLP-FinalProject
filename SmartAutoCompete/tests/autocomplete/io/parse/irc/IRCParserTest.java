@@ -15,10 +15,10 @@ public class IRCParserTest {
 	
 	@Test
 	public void testIRCParser() throws IOException {
-		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log");
-		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log");
-		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log");
-		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log");
+		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log.irc");
+		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log.irc");
+		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log.irc");
+		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log.irc");
 		OutputStreamWriter writer = new FileWriter("resources/res-irc.txt");
 		
 		Completer completer = new IRCCompleter(1, 3, 4); 
