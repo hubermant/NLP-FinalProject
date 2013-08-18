@@ -40,7 +40,7 @@ public class TestBasicCompleter {
 		System.out.println(test.length());
 		int count = 0;
 		StringTokenizer sentenceTokenizer =  new StringTokenizer(test, "\n.",false);
-		AutocompleteResultWriter os = new AutocompleteResultWriter(new FileWriter("resources/res.txt"));
+		AutocompleteResultWriter os = new AutocompleteResultWriter(new FileWriter("results/res-basic-alice.txt"));
 		while (sentenceTokenizer.hasMoreElements()) {
 			String sentence = sentenceTokenizer.nextToken();
 			List<String> sent = new ArrayList<>();
