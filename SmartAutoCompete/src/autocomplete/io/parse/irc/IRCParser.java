@@ -35,8 +35,10 @@ public class IRCParser implements CorpusParser {
 		while (line != null) {
 			if (line.startsWith("[")) {
 				IRCSentence sentence = new IRCSentence(line);
-				List<String> words = LenguistikTokenizer.wordTokrnizer(sentence.getMessage());
-				completer.train(words);
+				if (sentence.isRelevent()){
+					List<String> words = LenguistikTokenizer.wordTokrnizer(sentence.getMessage());
+					completer.train(words);
+				}
 			}
 			line = bufReader.readLine();
 		}
@@ -62,10 +64,13 @@ public class IRCParser implements CorpusParser {
 				completer.handleEvent(new IRCSessionIdentEvent(line.substring(15)));
 			} else if (line.startsWith("[")) {
 				IRCSentence sentence = new IRCSentence(line);
-				completer.handleEvent(new IRCEvent(sentence));
-				List<String> words = LenguistikTokenizer.wordTokrnizer(sentence.getMessage());
-				completeLine(words, res);
-				completer.handleEvent(new EndSentenceEvent(words));
+				
+				if (sentence.isRelevent()) {
+					completer.handleEvent(new IRCEvent(sentence));
+					List<String> words = LenguistikTokenizer.wordTokrnizer(sentence.getMessage());
+					completeLine(words, res);
+					completer.handleEvent(new EndSentenceEvent(words));
+				}
 			}
 			line = bufReader.readLine();
 		}
