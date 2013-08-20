@@ -10,6 +10,7 @@ import utill.LenguistikTokenizer;
 import utill.collection.WordRank;
 import autocomplete.core.completer.Completer;
 import autocomplete.core.event.EndSentenceEvent;
+import autocomplete.core.event.NewWordEvent;
 import autocomplete.core.event.WordCompletedEvent;
 import autocomplete.core.event.irc.IRCEvent;
 import autocomplete.core.event.irc.IRCSessionCloseEvent;
@@ -21,9 +22,11 @@ import autocomplete.io.parse.CorpusParser;
 public class IRCParser implements CorpusParser {
 	
 	private Completer completer;
+	private int numberOfResults;
 
-	public IRCParser(Completer completer) {
+	public IRCParser(Completer completer, int numberOfResults) {
 		this.completer=completer;
+		this.numberOfResults=numberOfResults;
 	}
 
 	@Override
@@ -84,6 +87,7 @@ public class IRCParser implements CorpusParser {
 		
 		// For each word in the sentence
 		for (int i=0; i < words.size(); i++) {
+			completer.handleEvent(new NewWordEvent());
 			String word = words.get(i);
 			List<String> sentencePrefix = words.subList(0, i);
 			boolean isCompleted = false;
@@ -92,7 +96,8 @@ public class IRCParser implements CorpusParser {
 			for (int j=0; j < word.length() +1 && !isCompleted; j++) {
 				String wordPrefix = word.substring(0, j);
 				List<WordRank> completions = completer.complete(sentencePrefix, 
-																wordPrefix);
+																wordPrefix,
+																numberOfResults);
 				
 				// Check all the completions
 				for (WordRank suggestion : completions) {

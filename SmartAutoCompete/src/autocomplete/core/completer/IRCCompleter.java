@@ -17,18 +17,19 @@ public class IRCCompleter extends LearningCompleter {
 	private int sessionFactor;
 	
 
-	public IRCCompleter(int ngram, int resNum, int sessionFactor) {
-		super(ngram,resNum);
+	public IRCCompleter(int ngram, int sessionFactor) {
+		super(ngram);
 		this.sessionFactor=sessionFactor;
 	}
 
 
 	@Override
-	public List<WordRank> complete(List<String> lastWords, String prefix) {
+	public List<WordRank> complete(List<String> lastWords, String prefix, int resNum) {
 		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 		sentenceContainer.setLastWords(lastWords);
 		List<String> lastNWords = sentenceContainer.getNgram();
 		List<WordRank> sugestions = wordBank.getByFeetchersAndPrefix(lastNWords, prefix);
+		
 		if(sugestions.size() > resNum) {
 			return sugestions.subList(0, resNum);
 		} else {

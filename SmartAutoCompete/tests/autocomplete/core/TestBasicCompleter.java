@@ -19,7 +19,7 @@ public class TestBasicCompleter {
 	
 	@Test
 	public void test() throws IOException {
-		BasicCompleter bComp = new BasicCompleter(1, 3);
+		BasicCompleter bComp = new BasicCompleter(1);
 		BufferedReader textReader = new BufferedReader(new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt"));
 		String corpus = "";
 		String line = textReader.readLine();
@@ -50,7 +50,7 @@ public class TestBasicCompleter {
 				boolean isCompleted = false;
 				for (int j=0; j < word.length() +1 && !isCompleted; j++) {
 					String prefix = word.substring(0, j);
-					List<WordRank> complete = bComp.complete(sent, prefix);
+					List<WordRank> complete = bComp.complete(sent, prefix, 3);
 					for (WordRank suggestion : complete) {
 						if(suggestion.getWord().equals(word)) {
 							os.write(word, prefix);

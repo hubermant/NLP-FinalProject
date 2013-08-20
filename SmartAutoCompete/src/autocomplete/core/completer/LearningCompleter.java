@@ -8,8 +8,8 @@ public class LearningCompleter extends BasicCompleter {
 	
 	/* ---- Constructors ---- */
 
-	public LearningCompleter(int ngram, int resNum) {
-		super(ngram, resNum);
+	public LearningCompleter(int ngram) {
+		super(ngram);
 	}
 	
 	public void handleEvent(Event e) {

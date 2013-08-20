@@ -21,8 +21,8 @@ public class DocumentParserTest {
 		Reader testReader = new FileReader("resources/cybersla.txt");
 		OutputStreamWriter writer = new FileWriter("resources/res-basic.txt");
 		
-		Completer completer = new BasicCompleter(1, 3); 
-		DocumentParser parser = new DocumentParser(completer);
+		Completer completer = new BasicCompleter(1); 
+		DocumentParser parser = new DocumentParser(completer, 3);
 		
 		parser.train(trainReader);
 		parser.complete(testReader, writer);
@@ -33,8 +33,8 @@ public class DocumentParserTest {
 		Reader testReader = new FileReader("resources/cybersla.txt");
 		OutputStreamWriter writer = new FileWriter("resources/res-learning.txt");
 		
-		Completer completer = new LearningCompleter(1, 3); 
-		DocumentParser parser = new DocumentParser(completer);
+		Completer completer = new LearningCompleter(1); 
+		DocumentParser parser = new DocumentParser(completer, 3);
 		
 		parser.train(trainReader);
 		parser.complete(testReader, writer);

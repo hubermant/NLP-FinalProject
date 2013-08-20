@@ -13,13 +13,10 @@ public class BasicCompleter implements Completer {
 	
 	protected int ngram;
 	
-	protected int resNum;
-	
 	protected WordsSuggestion wordBank;
 	
-	public BasicCompleter(int ngram, int resNum) {
+	public BasicCompleter(int ngram) {
 		this.ngram = ngram;
-		this.resNum = resNum;
 		wordBank = new WordsSuggestion();
 	}
 	@Deprecated
@@ -50,7 +47,7 @@ public class BasicCompleter implements Completer {
 	}
 
 	@Override
-	public List<WordRank> complete(List<String> lastWords, String prefix) {
+	public List<WordRank> complete(List<String> lastWords, String prefix, int resNum) {
 		SentenceContainer sentenceContainer = new SentenceContainer(ngram);
 		sentenceContainer.setLastWords(lastWords);
 		List<String> lastNWords = sentenceContainer.getNgram();
@@ -66,6 +63,4 @@ public class BasicCompleter implements Completer {
 	public void handleEvent(Event e) {
 		// This is a basic completer.
 	}
-	
-
 }
