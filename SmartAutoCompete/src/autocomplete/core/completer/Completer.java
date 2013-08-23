@@ -11,21 +11,25 @@ import autocomplete.core.event.Event;
 public interface Completer {
 	
 	/**
-	 * Train the completer.
-	 * @param text the train data.
+	 * Train the completer on the given sentence.
+	 * 
+	 * @param sentence The sentence that the completer will train on.
 	 */
-	public void train(List<String> text);
+	public void train(List<String> sentence);
 	
 	/**
-	 * @param lastWords the last n words.
-	 * @param prefix the prefix of the current word.
-	 * @param resNum the number of results to return.
-	 * @return a Set of k completion word proposals.
+	 * This method suggest what is the word that currently being typed by using the prefix and the lastWords.
+	 * 
+	 * @param lastWords The last words of the sentence.
+	 * @param prefix The prefix of the current word.
+	 * @param resNum The number of results to return.
+	 * @return A {@link List} of suggested words.
 	 */
 	public List<WordRank> complete(List<String> lastWords, String prefix, int resNum);
 	
 	/**
 	 * This method handles all the events that the completer gets.
+	 * 
 	 * @param e The event needed to be handled.
 	 */
 	public void handleEvent(Event e);

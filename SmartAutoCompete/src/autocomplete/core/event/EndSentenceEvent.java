@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * This class indicates the end of sentence event.
  * This Event is raised when a completer finish completing a sentence.
+ * 
+ * @see Event
  */
 public class EndSentenceEvent implements Event {
 	
@@ -19,6 +21,7 @@ public class EndSentenceEvent implements Event {
 	
 	/**
 	 * Default C'tor.
+	 * 
 	 * @param sentece The ended sentence.
 	 */
 	public EndSentenceEvent(List<String> sentence) {
@@ -26,7 +29,7 @@ public class EndSentenceEvent implements Event {
 	}
 
 	
-	/* ---- Getters and Setters --- */
+	/* ---- Getters --- */
 	
 	/**
 	 * @return The ended sentence.

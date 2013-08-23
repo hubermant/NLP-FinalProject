@@ -13,16 +13,47 @@ import autocomplete.core.event.EndSentenceEvent;
 import autocomplete.core.event.NewWordEvent;
 import autocomplete.io.AutocompleteResultWriter;
 
+/**
+ * This is the parser for a basic texts.
+ * 
+ * @see CorpusParser
+ */
 public class DocumentParser implements CorpusParser {
 	
-	private Completer completer;
-	private int numberOfResults;
 	
+	/* ---- Data Members ---- */
+	
+	/** The completer. */
+	private Completer completer;
+	
+	/** The wanted number of results. */
+	private int numberOfResults;
+
+	
+	/* ---- Constructors ---- */
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param completer The completer to use.
+	 * @param numberOfResults The wanted number of result from the completer.
+	 */
 	public DocumentParser(Completer completer, int numberOfResults) {
 		this.completer = completer;
 		this.numberOfResults = numberOfResults;
 	}
 	
+	
+	/* ---- Public Methods ---- */
+	
+	/**
+	 * Train the completer from an regular text File.
+	 * 
+	 * @param reader A reader for the txt File
+	 * @throws IOException
+	 * @see autocomplete.io.parse.CorpusParser#train(java.io.Reader)
+	 */
+	@Override
 	public void train(Reader reader) throws IOException {
 		BufferedReader bufReader = new BufferedReader(reader);
 		char[] charBuf = new char[10000];
@@ -46,7 +77,15 @@ public class DocumentParser implements CorpusParser {
 		bufReader.close();
 	}
 	
-	
+	/**
+	 * Simulate completion on the text file and write the results.
+	 * 
+	 * @param reader The text file.
+	 * @param out The result writer.
+	 * @throws IOException
+	 * @see autocomplete.io.parse.CorpusParser#complete(java.io.Reader, java.io.OutputStreamWriter)
+	 */
+	@Override
 	public void complete(Reader reader, OutputStreamWriter out) throws IOException {
 		AutocompleteResultWriter res = new AutocompleteResultWriter(out);
 		BufferedReader bufReader = new BufferedReader(reader);
@@ -79,6 +118,15 @@ public class DocumentParser implements CorpusParser {
 	}
 	
 	
+	/* ---- Private Methods ---- */
+	
+	/**
+	 * Simulate the completion process on a given sentence, and write the results.
+	 * 
+	 * @param words The sentence.
+	 * @param res The result writer.
+	 * @throws IOException
+	 */
 	private void completeLine(List<String> words, AutocompleteResultWriter res) throws IOException {
 		
 		// For each word in the sentence
