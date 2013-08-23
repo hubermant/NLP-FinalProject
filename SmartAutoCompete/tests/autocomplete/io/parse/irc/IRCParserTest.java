@@ -16,76 +16,81 @@ import autocomplete.core.completer.LearningCompleter;
 
 public class IRCParserTest {
 	
-	//@Test
-	public void testIRCParser() throws IOException {
-		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log.irc");
-		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log.irc");
-		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log.irc");
-		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log.irc");
-		OutputStreamWriter writer = new FileWriter("results/res-irc.txt");
-		
-		Completer completer = new IRCCompleter(1, 4); 
-		IRCParser parser = new IRCParser(completer, 3);
-		System.out.println("start training");
-		parser.train(trainReader1);
-		parser.train(trainReader2);
-		parser.train(trainReader3);
-		System.out.println("done training");
-		parser.complete(testReader, writer);
-	}
+	/**
+	//Original test settings.
+	String [] trainPaths = {"resources/##chemistry.20100116.log.irc",
+							"resources/#wikipedia.20090731.log.irc",
+							"resources/#wikipedia-en.20100103.log.irc"};
 	
-	//@Test
-	public void testIRCParserLearning() throws IOException {
-		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log.irc");
-		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log.irc");
-		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log.irc");
-		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log.irc");
-		OutputStreamWriter writer = new FileWriter("results/res-irc-learning-1gram.txt");
-		
-		Completer completer = new LearningCompleter(1); 
-		IRCParser parser = new IRCParser(completer, 3);
-		System.out.println("start training");
-		parser.train(trainReader1);
-		parser.train(trainReader2);
-		parser.train(trainReader3);
-		System.out.println("done training");
-		parser.complete(testReader, writer);
-	}
+	String testPath = "resources/#wikipedia-en.20100117.log.irc";
+	int numberOfSuggestions = 3;
+	
+	String resSuffix = ".txt";
+	**/
+	
+	// second test settings with more train.
+	String [] trainPaths = {"resources/##chemistry.20100116.log.irc",
+			"resources/#wikipedia.20090731.log.irc",
+			"resources/#wikipedia-en.20100103.log.irc",
+			"resources/#GA.log",
+			"resources/#ga.20100615.log",
+			"resources/#GA.20090602.log"
+		};
 
-	//@Test
-	public void testIRCParserBaseline() throws IOException {
-		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log.irc");
-		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log.irc");
-		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log.irc");
-		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log.irc");
-		OutputStreamWriter writer = new FileWriter("results/res-irc-baseline-1gram.txt");
+	String testPath = "resources/#GA.20080715.log";
+	int numberOfSuggestions = 3;
+	
+	String resSuffix = "-test-GA.2008715.txt";
+	
+	public void runIRCParser(String [] trainPaths, 
+						String testPath, 
+						String resPath,
+						Completer completer,
+						int numberOfSuggestions) throws IOException{
 		
-		Completer completer = new BasicCompleter(1); 
-		IRCParser parser = new IRCParser(completer, 3);
-		System.out.println("start training");
-		parser.train(trainReader1);
-		parser.train(trainReader2);
-		parser.train(trainReader3);
-		System.out.println("done training");
+		IRCParser parser = new IRCParser(completer, numberOfSuggestions);
+		
+		for (String path : trainPaths) {
+			System.out.println("Training parser on: " + path);
+			Reader trainReader = new FileReader(path);
+			parser.train(trainReader);
+			System.out.println("Finish training parser on: " + path);
+		}
+		
+		Reader testReader = new FileReader(testPath);
+		OutputStreamWriter writer = new FileWriter(resPath + resSuffix);
 		parser.complete(testReader, writer);
 	}
 	
 	@Test
+	public void testIRCParser() throws IOException {
+		String resPath = "results/res-irc";
+		Completer completer = new IRCCompleter(1, 4); 
+		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
+	}
+	
+	@Test
+	public void testIRCParserLearning() throws IOException {
+		String resPath = "results/res-irc-learning-1gram";
+		
+		Completer completer = new LearningCompleter(1); 
+		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
+	}
+
+	@Test
+	public void testIRCParserBaseline() throws IOException {
+		String resPath = "results/res-irc-baseline-1gram";
+		
+		Completer completer = new BasicCompleter(1); 
+		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
+	}
+	
+	@Test
 	public void testIRCParserIRCCompleterWithFilter() throws IOException {
-		Reader trainReader1 = new FileReader("resources/##chemistry.20100116.log.irc");
-		Reader trainReader2 = new FileReader("resources/#wikipedia.20090731.log.irc");
-		Reader trainReader3 = new FileReader("resources/#wikipedia-en.20100103.log.irc");
-		Reader testReader = new FileReader("resources/#wikipedia-en.20100117.log.irc");
-		OutputStreamWriter writer = new FileWriter("results/res-irc-with-filter-1gram.txt");
+		String resPath = "results/res-irc-with-filter-1gram.txt";
 		
 		Completer completer = new FilterCompleter(new IRCCompleter(1, 4)); 
-		IRCParser parser = new IRCParser(completer, 3);
-		System.out.println("start training");
-		parser.train(trainReader1);
-		parser.train(trainReader2);
-		parser.train(trainReader3);
-		System.out.println("done training");
-		parser.complete(testReader, writer);
+		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
 	}
 
 }
