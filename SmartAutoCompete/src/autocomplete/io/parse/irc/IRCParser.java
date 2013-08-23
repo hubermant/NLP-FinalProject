@@ -19,16 +19,46 @@ import autocomplete.core.event.irc.IRCSessionStartEvent;
 import autocomplete.io.AutocompleteResultWriter;
 import autocomplete.io.parse.CorpusParser;
 
+/**
+ * This class train and complete from IRC files.
+ * 
+ * @see CorpusParser
+ */
 public class IRCParser implements CorpusParser {
 	
+	
+	/* ---- Data Members ---- */
+	
+	/** The completer. */
 	private Completer completer;
+	
+	/** The wanted number of results. */
 	private int numberOfResults;
 
+	
+	/* ---- Constructors ---- */
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param completer The completer to use.
+	 * @param numberOfResults The wanted number of result from the completer.
+	 */
 	public IRCParser(Completer completer, int numberOfResults) {
 		this.completer=completer;
 		this.numberOfResults=numberOfResults;
 	}
+	
+	
+	/* ---- Implemented Methods ---- */
 
+	/**
+	 * Train the completer from an IRC File.
+	 * 
+	 * @param reader A reader for the IRC File
+	 * @throws IOException
+	 * @see autocomplete.io.parse.CorpusParser#train(java.io.Reader)
+	 */
 	@Override
 	public void train(Reader reader) throws IOException {
 		BufferedReader bufReader = new BufferedReader(reader);
@@ -50,6 +80,14 @@ public class IRCParser implements CorpusParser {
 		reader.close();
 	}
 
+	/**
+	 * Simulate completion on the IRC file and write the results.
+	 * 
+	 * @param reader THe IRC file.
+	 * @param out The result writer.
+	 * @throws IOException
+	 * @see autocomplete.io.parse.CorpusParser#complete(java.io.Reader, java.io.OutputStreamWriter)
+	 */
 	@Override
 	public void complete(Reader reader, OutputStreamWriter out)
 			throws IOException {
@@ -83,6 +121,16 @@ public class IRCParser implements CorpusParser {
 		res.close();
 	}
 	
+	
+	/* ---- Private Methods ---- */
+	
+	/**
+	 * Simulate the completion process on a given sentence, and write the results.
+	 * 
+	 * @param words The sentence.
+	 * @param res The result writer.
+	 * @throws IOException
+	 */
 	private void completeLine(List<String> words, AutocompleteResultWriter res) throws IOException {
 		
 		// For each word in the sentence
