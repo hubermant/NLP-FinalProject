@@ -85,12 +85,22 @@ public class IRCParserTest {
 		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
 	}
 	
-	@Test
+	//@Test
 	public void testIRCParserIRCCompleterWithFilter() throws IOException {
 		String resPath = "results/res-irc-with-filter-1gram.txt";
 		
 		Completer completer = new FilterCompleter(new IRCCompleter(1, 4)); 
 		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
+	}
+
+	@Test
+	public void testIRCParserIRCCompleterWithFilterDifferentNgrams() throws IOException {
+		for (int i = 2; i < 6; i ++ ) {
+			String resPath = "results/res-irc-with-filter-" + i + "gram-sfactor4";
+
+			Completer completer = new FilterCompleter(new IRCCompleter(i, 4));
+			runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
+		}
 	}
 
 }
