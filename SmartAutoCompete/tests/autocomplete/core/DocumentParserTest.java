@@ -17,9 +17,9 @@ public class DocumentParserTest {
 	
 	@Test
 	public void testBasicCompleter() throws IOException {
-		Reader trainReader = new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt");
-		Reader testReader = new FileReader("resources/cybersla.txt");
-		OutputStreamWriter writer = new FileWriter("resources/res-basic.txt");
+		Reader testReader = new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt");
+		Reader trainReader = new FileReader("resources/cybersla.txt");
+		OutputStreamWriter writer = new FileWriter("resources/res-alice-basic.txt");
 		
 		Completer completer = new BasicCompleter(1); 
 		DocumentParser parser = new DocumentParser(completer, 3);
@@ -29,9 +29,9 @@ public class DocumentParserTest {
 	}
 	@Test
 	public void testLearningCompleter() throws IOException {
-		Reader trainReader = new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt");
-		Reader testReader = new FileReader("resources/cybersla.txt");
-		OutputStreamWriter writer = new FileWriter("resources/res-learning.txt");
+		Reader testReader = new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt");
+		Reader trainReader = new FileReader("resources/cybersla.txt");
+		OutputStreamWriter writer = new FileWriter("results/res-alice-learning.txt");
 		
 		Completer completer = new LearningCompleter(1); 
 		DocumentParser parser = new DocumentParser(completer, 3);
