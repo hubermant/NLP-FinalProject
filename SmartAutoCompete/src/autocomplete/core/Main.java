@@ -32,8 +32,15 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		if (args.length < 5) {
-			System.err.println("Usage: Main <suggestions> <ngram> <testfile>" +
-							   "<resfile> <train> [<train>, ...]");
+			System.err.println("Usage: Main <suggestions> <ngram> <testfile> " +
+							   "<resfile> <train> [<train>, ...] ");
+			System.err.println("");
+			System.err.println(" [*] suggestions <int> -\n\t the number of suggestions a completer may suggest in each step\n");
+			System.err.println(" [*] ngram <int>       -\n\t the size of ngrams used in training, and completion process\n");
+			System.err.println(" [*] testfile <path>   -\n\t an IRC formatted file to test the completer against\n");
+			System.err.println(" [*] resfile <path>    -\n\t the file where the results should be saved in\n");
+			System.err.println(" [*] train <paths>     -\n\t one or more IRC formatted files to train the completer against\n");
+			System.exit(1);
 		}
 		
 		int suggestions = Integer.parseInt(args[0]);
@@ -41,9 +48,6 @@ public class Main {
 		String testfile = args[2];
 		String resfile = args[3];
 		List<String> train = Arrays.asList(args).subList(4, args.length);
-		
-		System.out.println(suggestions);
-		System.out.println(train);
 		
 		Completer completer = new FilterCompleter(new IRCCompleter(ngram, 4));
 		
@@ -65,14 +69,17 @@ public class Main {
 
 		IRCParser parser = new IRCParser(completer, numberOfSuggestions);
 
+		System.out.println("[*] Start training.");
 		for (String path : trainPaths) {
 			Reader trainReader = new FileReader(path);
 			parser.train(trainReader);
 		}
-
+		System.out.println("[*] Finish training.");
+		
 		Reader testReader = new FileReader(testPath);
 		OutputStreamWriter writer = new FileWriter(resPath);
 		parser.complete(testReader, writer);
+		System.out.println("[*] Finish completing test.");
 	}
 
 }
