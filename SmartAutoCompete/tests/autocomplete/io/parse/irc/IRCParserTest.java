@@ -105,4 +105,14 @@ public class IRCParserTest {
 		}
 	}
 
+	public void testIRCParserManyResources() {
+		String resPath = "results/res-irc-with-filter-";
+		File resourceFolder = new File("resources/x");
+		File[] resources = resourceFolder.listFiles();
+
+		for (File resource: resources) {
+			System.out.println(resource.getPath() + " -- " + resource.length());
+		}
+
+	}
 }
