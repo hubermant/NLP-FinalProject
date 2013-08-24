@@ -155,6 +155,8 @@ def save_resutls_to_excel(all_text_results, segments_results, excel_path='res.xl
     df.to_excel(excel, 'segments')
     df2.to_excel(excel, 'all')
     excel.save()
+
+
 def main():
     text = open(sys.argv[1]).readlines()
     all_text_results = process_segment(text)
