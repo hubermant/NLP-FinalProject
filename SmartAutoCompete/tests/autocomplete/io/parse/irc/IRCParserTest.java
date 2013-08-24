@@ -129,14 +129,34 @@ public class IRCParserTest {
 	
 
 	@Test
-	public void testIRCParserManyResources() {
-		String resPath = "results/res-irc-with-filter-";
+	public void testIRCParserManyResources() throws IOException {
+		int [] sizeOfTrainInBytes =
+			   {1024 * 512,
+				1024 * 1024,
+				1024 * 1024 * 5,
+				1024, 1024 * 1024 * 10};
+
+
 		File resourceFolder = new File("resources/x");
 		File[] resources = resourceFolder.listFiles();
 		
-		for (File resource: resources) {
-			System.out.println(resource.getPath() + " -- " + resource.length());
+		for (int size : sizeOfTrainInBytes) {
+			System.out.println("Train for size "  +size);
+
+			String resPath = "results/res-irc-with-filter-big-train(" + size + " bytes)";
+			int currSize = 0;
+			List <String> trainFiles = new ArrayList<String>();
+			for (File resource: resources) {
+				if (currSize < size) {
+					currSize += resource.length();
+					trainFiles.add(resource.getPath());
+				}
+			}
+
+			System.out.println("Train on " + trainFiles.size() + " files.");
+			Completer completer = new FilterCompleter(new IRCCompleter(1, 4));
+			runIRCParser(trainFiles.toArray(new String[trainFiles.size()]),
+					testPath, resPath, completer, 3);
 		}
-		
 	}
 }
