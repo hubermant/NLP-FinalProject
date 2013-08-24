@@ -32,15 +32,17 @@ public class IRCParserTest {
 	String [] trainPaths = {"resources/##chemistry.20100116.log.irc",
 			"resources/#wikipedia.20090731.log.irc",
 			"resources/#wikipedia-en.20100103.log.irc",
-			"resources/#GA.log",
-			"resources/#ga.20100615.log",
-			"resources/#GA.20090602.log"
+			"resources/#GA.log.irc",
+			"resources/#ga.20100615.log.irc",
+			"resources/#GA.20090602.log.irc"
 		};
 
-	String testPath = "resources/#GA.20080715.log";
+	//String testPath = "resources/#GA.20080715.log.irc";
+	String testPath = "resources/#wikipedia-en.20100117.log.irc";
 	int numberOfSuggestions = 3;
 	
-	String resSuffix = "-test-GA.2008715.txt";
+	//String resSuffix = "-test-GA.2008715.txt";
+	String resSuffix = " .txt";
 	
 	public void runIRCParser(String [] trainPaths, 
 						String testPath, 
