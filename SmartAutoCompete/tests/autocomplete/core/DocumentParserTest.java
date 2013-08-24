@@ -19,7 +19,7 @@ public class DocumentParserTest {
 	public void testBasicCompleter() throws IOException {
 		Reader testReader = new FileReader("resources/Full text of  Alice's Adventures in Wonderland.txt");
 		Reader trainReader = new FileReader("resources/cybersla.txt");
-		OutputStreamWriter writer = new FileWriter("resources/res-alice-basic.txt");
+		OutputStreamWriter writer = new FileWriter("results/res-alice-basic.txt");
 		
 		Completer completer = new BasicCompleter(1); 
 		DocumentParser parser = new DocumentParser(completer, 3);
