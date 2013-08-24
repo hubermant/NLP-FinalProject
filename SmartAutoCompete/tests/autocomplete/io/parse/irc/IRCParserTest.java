@@ -103,4 +103,26 @@ public class IRCParserTest {
 		}
 	}
 
+	@Test
+	public void testIRCParserIRCCompleterWithFilterDifferentSuggestions() throws IOException {
+		for (int i = 2; i < 10; i ++ ) {
+			String resPath = "results/res-irc-with-filter-1gram-sfactor4-"+i+"suggestions";
+			
+			Completer completer = new FilterCompleter(new IRCCompleter(1, 4));
+			runIRCParser(trainPaths, testPath, resPath, completer, i);
+		}
+	}
+	
+	@Test
+	public void testIRCParserIRCCompleterWithFilterDifferentIRCFactor() throws IOException {
+		for (int i = 2; i < 10; i ++ ) {
+			String resPath = "results/res-irc-with-filter-1gram-sfactor"+i+"-3suggestions";
+			
+			Completer completer = new FilterCompleter(new IRCCompleter(1, i));
+			runIRCParser(trainPaths, testPath, resPath, completer, 3);
+		}
+	}
+	
+	
+
 }
