@@ -1,5 +1,6 @@
 package autocomplete.io.parse.irc;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -94,25 +95,26 @@ public class IRCParserTest {
 		Completer completer = new FilterCompleter(new IRCCompleter(1, 4)); 
 		runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
 	}
-
-	@Test
+	
+	//@Test
 	public void testIRCParserIRCCompleterWithFilterDifferentNgrams() throws IOException {
 		for (int i = 2; i < 6; i ++ ) {
 			String resPath = "results/res-irc-with-filter-" + i + "gram-sfactor4";
-
-			Completer completer = new FilterCompleter(new IRCCompleter(i, 4));
+			
+			Completer completer = new FilterCompleter(new IRCCompleter(i, 4)); 
 			runIRCParser(trainPaths, testPath, resPath, completer, numberOfSuggestions);
 		}
 	}
 
+	@Test
 	public void testIRCParserManyResources() {
 		String resPath = "results/res-irc-with-filter-";
 		File resourceFolder = new File("resources/x");
 		File[] resources = resourceFolder.listFiles();
-
+		
 		for (File resource: resources) {
 			System.out.println(resource.getPath() + " -- " + resource.length());
 		}
-
+		
 	}
 }
